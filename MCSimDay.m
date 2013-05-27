@@ -82,7 +82,7 @@ function [eventHistogram,simBySimCummulativeEventCountsActualTime,...
         % do we want to limit the results to those with over a certain time
         % of evaluation?
         tStart = tActual-tPatient;
-        sel = tStart<idx-365.25; % must have started 1 or more years before
+        sel = tStart<idx-2*365.25; % must have started 2 or more years before
 
         A = length(arms);   % number of trial arms
         y = tp(armPatient~=A & sel);    % control patient survival times (up to E-th event)
@@ -112,7 +112,7 @@ function [eventHistogram,simBySimCummulativeEventCountsActualTime,...
     end;
     figure(2);
     hist(eventHistogram,min(eventHistogram):max(eventHistogram)); grid;
-    title(sprintf('Histogram of interim analysis period from %d simulations',N));
+    title(sprintf('Histogram of %d event analysis period from %d simulations',targetEvents,N));
     ylabel('count');
     xlabel('days since trial start');
     mu = mean(eventHistogram);
